@@ -20,7 +20,7 @@ commandArray = {}
 -- "Comfort" mode on, and registered temperature different than "comfort" programmed temperature.
 -- TODO: Check device actual temp instead of using a user variable.
 if devicechanged['ChauffageSalonConfort'] == 'On'
-    or uservariables['TempSalon'] ~= uservariables['TempSalonConfort']
+    and uservariables['TempSalon'] ~= uservariables['TempSalonConfort']
 then
     -- Keep track of modified temperature, so that when "away" mode is off we can set the right temperature.
     commandArray['Variable:TempSalon'] = tostring(uservariables['TempSalonConfort'])
