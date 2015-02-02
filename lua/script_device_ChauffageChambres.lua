@@ -22,10 +22,13 @@ commandArray = {}
 if (devicechanged['ChauffageChambresConfort'] == 'On' or devicechanged['HomeOffice'] == 'On')
     and uservariables['TempChambres'] ~= uservariables['TempChambresConfort']
 then
-    apiUrl = string.format(apiUrl, idxThermostat, uservariables['TempChambresConfort'])
-    commandArray['OpenURL'] = apiUrl
+    -- Keep track of modified temperature, so that when "away" mode is off we can set the right temperature.
     commandArray['Variable:TempChambres'] = tostring(uservariables['TempChambresConfort'])
-    print('Calling API: ' .. apiUrl)
+    if otherdevices['Absence'] == 'On' then
+        return commandArray
+    end
+
+    commandArray['OpenURL'] = string.format(apiUrl, idxThermostat, uservariables['TempChambresConfort'])
     print('Changing temperature for "Chambres": ' .. uservariables['TempChambresConfort'] .. '°C')
 
 -- "Eco" mode on, and registered temperature different than "eco" programmed temperature.
@@ -33,10 +36,12 @@ then
 elseif (devicechanged['ChauffageChambresConfort'] == 'Off' or devicechanged['HomeOffice'] == 'Off')
     and uservariables['TempChambres'] ~= uservariables['TempChambresEco']
 then
-    apiUrl = string.format(apiUrl, idxThermostat, uservariables['TempChambresEco'])
-    commandArray['OpenURL'] = apiUrl
     commandArray['Variable:TempChambres'] = tostring(uservariables['TempChambresEco'])
-    print('Calling API: ' .. apiUrl)
+    if otherdevices['Absence'] == 'On' then
+        return commandArray
+    end
+
+    commandArray['OpenURL'] = string.format(apiUrl, idxThermostat, uservariables['TempChambresEco'])
     print('Changing temperature for "Salon": ' .. uservariables['TempChambresEco'] .. '°C')
 
 end
