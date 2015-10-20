@@ -45,8 +45,7 @@ then
     commandArray['OpenURL'] = string.format(apiUrl, idxThermostat, uservariables['TempSalonEco'])
     print('Changing temperature for "Salon": ' .. uservariables['TempSalonEco'] .. '°C')
 
-elseif devicechanged['ChauffageSalonReveil'] == 'On'
-then
+elseif devicechanged['ChauffageSalonReveil'] == 'On' then
     if otherdevices['Absence'] == 'On' then
         return commandArray
     end
@@ -54,8 +53,7 @@ then
     commandArray['OpenURL'] = string.format(apiUrl, idxThermostat, uservariables['TempSalonReveil'])
     print('Changing temperature for "Salon": ' .. uservariables['TempSalonReveil'] .. '°C')
 
-elseif devicechanged['ChauffageSalonReveil'] == 'Off'
-then
+elseif devicechanged['ChauffageSalonReveil'] == 'Off' then
     local temp = uservariables['TempSalonEco']
     if otherdevices['ChauffageSalonConfort'] == 'On' then
         temp = uservariables['TempSalonConfort']

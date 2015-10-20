@@ -10,8 +10,8 @@ commandArray = {}
 
 if devicechanged['Absence'] == 'On' then
     print('Away mode on. Switching all heating zones to "eco"')
-    commandArray[1] = {['OpenURL'] = string.format(apiUrl, idxThermostatSalon, uservariables['TempSalonEco']) }
-    commandArray[2] = {['OpenURL'] = string.format(apiUrl, idxThermostatChambres, uservariables['TempChambresEco'])}
+    commandArray[1] = {['OpenURL'] = string.format(apiUrl, idxThermostatSalon, uservariables['TempAbsence']) }
+    commandArray[2] = {['OpenURL'] = string.format(apiUrl, idxThermostatChambres, uservariables['TempAbsence'])}
 
 elseif devicechanged['Absence'] == 'Off' then
     -- Change back thermostats setpoints to appropriate temperature
