@@ -9,6 +9,8 @@ cameraSceneFrontToBack = 'Alarme photos rue-jardin'
 pir = 'Sauron présence'
 siren = 'Sirène'
 sirenLevel = 100
+alarmSwitchFrontDoor = "Alarme porte d'entrée" -- Virtual switch to activate if intrusion from front door is detected.
+alarmSwitchFrontDoorDelay = '15' -- Delay after which alarmSwitchFrontDoor will be activated once the front door is open.
 
 notificationSubject = 'Cambrioleur entré : '
 
@@ -30,7 +32,7 @@ if (globalvariables['Security'] ~= 'Disarmed') then
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
         commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
     elseif (devicechanged[frontDoor] == 'Open') then
-
+        commandArray[alarmSwitchFrontDoor] = 'On AFTER ' .. alarmSwitchFrontDoorDelay
     elseif (globalvariables['Armed Away'] and devicechanged[pir] == 'On') then
         commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
