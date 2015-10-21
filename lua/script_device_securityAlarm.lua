@@ -44,9 +44,10 @@ if (globalvariables['Security'] ~= 'Disarmed') then
     elseif (devicechanged[frontDoor] == 'Open') then
         commandArray[alarmSwitchFrontDoor] = 'On AFTER ' .. alarmSwitchFrontDoorDelay
     -- PIR change. Only used when alarm is being "armed away".
-    elseif (globalvariables['Armed Away'] and devicechanged[pir] == 'On' and devicechanged[frontDoor] == 'Closed') then
+    elseif (globalvariables['Security'] == 'Armed Away' and devicechanged[pir] == 'On' and otherdevices[frontDoor] == 'Closed') then
         commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
+        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
     end
 end
 
