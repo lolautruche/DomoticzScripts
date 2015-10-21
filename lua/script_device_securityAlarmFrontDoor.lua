@@ -8,7 +8,7 @@ cameraSceneBackToFront = 'Alarme photos jardin-rue'
 
 notificationSubject = 'Cambrioleur entré : '
 
-debug = true
+debug = uservariables['Debug'] ~= 0
 commandArray = {}
 
 if (debug) then

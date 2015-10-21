@@ -20,7 +20,7 @@ alarmSwitchFrontDoorDelay = '15' -- Delay after which alarmSwitchFrontDoor will 
 
 notificationSubject = 'Cambrioleur entré : '
 
-debug = true
+debug = uservariables['Debug'] ~= 0
 commandArray = {}
 
 if (debug) then
