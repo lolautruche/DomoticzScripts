@@ -29,6 +29,7 @@ if (globalvariables['Security'] ~= 'Disarmed') then
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
         commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
     elseif (devicechanged[frontWindow] == 'Open') then
+        commandArray['Scene:' .. cameraSceneFrontToBack] = 'On'
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
         commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
     elseif (devicechanged[frontDoor] == 'Open') then
