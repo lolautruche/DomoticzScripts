@@ -4,7 +4,7 @@ commandArray = {}
 subject = 'Domoticz - Alarm activation'
 body = ''
 siren = 'Sirène'
-alarmSwitchFrontDoor = "Alarme porte d'entrée"
+alarmSwitchFrontDoor = 'Alarme porte entrée'
 
 if (globalvariables['Security'] ~= 'Disarmed') then
     body = 'Alarm was correctly armed'
