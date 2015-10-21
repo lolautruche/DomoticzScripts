@@ -10,7 +10,7 @@ if (globalvariables['Security'] ~= 'Disarmed') then
     body = 'Alarm was correctly armed'
 else
     body = 'Alarm was correctly disarmed'
-    -- Ensure to deactivate the Siren
+    -- Ensure to deactivate the Siren and related devices
     commandArray[siren] = 'Off'
     commandArray[alarmSwitchFrontDoor] = 'Off'
 end
