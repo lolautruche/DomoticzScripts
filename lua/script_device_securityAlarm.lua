@@ -1,4 +1,8 @@
--- Alarm
+-- Main alarm script.
+-- Checks door/window sensors (perimetric alarm) and/or PIR sensor (volumetric alarm).
+-- Volumetric detection is only used when Domoticz alarm status is "Armed Away".
+-- See also script_security_notification.lua (alarm activation/deactivation)
+-- and script_device_securityAlarmFrontDoor.lua (activation when front door is open).
 
 -- Door/window sensors / PIR
 frontDoor = 'Porte entrée' -- Front door sensor name
@@ -9,7 +13,7 @@ pir = 'Sauron présence' -- PIR
 
 -- Camera scenes
 -- Will move the camera and take pictures.
-cameraSceneBackToFront = 'Alarme photos jardin-rue' -- Camera scene name (back to front). This scene
+cameraSceneBackToFront = 'Alarme photos jardin-rue'
 cameraSceneFrontToBack = 'Alarme photos rue-jardin'
 
 siren = 'Sirène' -- Siren device name (Fortrezz SSA2)
@@ -40,7 +44,9 @@ if (globalvariables['Security'] ~= 'Disarmed') then
         commandArray['Scene:' .. cameraSceneFrontToBack] = 'On'
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
         commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
-    -- Front door. Special case since we need to be able to disarm the alarm as this can be triggered by a granted person.
+    -- Front door. Special case as an authorized person can enter through it.
+    -- Give some time to disarm the alarm.
+    -- When given time is up, activate "alarmSwitchFrontDoor" (see script_device_securityAlarmFrontDoor.lua).
     elseif (devicechanged[frontDoor] == 'Open') then
         commandArray[alarmSwitchFrontDoor] = 'On AFTER ' .. alarmSwitchFrontDoorDelay
     -- PIR change. Only used when alarm is being "armed away".
