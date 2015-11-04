@@ -20,7 +20,7 @@ siren = 'Sirène' -- Siren device name (Fortrezz SSA2)
 sirenLevel = 100 -- Siren level (Fortrezz SSA2 acts as a dimmer)
 
 alarmSwitchFrontDoor = 'Alarme porte entrée' -- Virtual switch to activate if intrusion from front door is detected.
-alarmSwitchFrontDoorDelay = '15' -- Delay after which alarmSwitchFrontDoor will be activated once the front door is open.
+alarmSwitchFrontDoorDelay = '30' -- Delay after which alarmSwitchFrontDoor will be activated once the front door is open.
 
 notificationSubject = 'Cambrioleur entré : '
 
