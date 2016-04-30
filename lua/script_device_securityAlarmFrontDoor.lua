@@ -17,9 +17,9 @@ if (debug) then
 end
 
 if (devicechanged[alarmSwitchFrontDoor] == 'On') then
-    commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
-    commandArray['SendNotification'] = notificationSubject .. alarmSwitchFrontDoor .. '#' .. notificationSubject .. 'Front door#2'
     commandArray[siren] = 'Set Level ' .. tostring(sirenLevel)
+    commandArray['SendNotification'] = notificationSubject .. alarmSwitchFrontDoor .. '#' .. notificationSubject .. 'Front door#2'
+    commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
 
     return commandArray
 end

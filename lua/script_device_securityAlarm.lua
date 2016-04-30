@@ -36,24 +36,24 @@ if (globalvariables['Security'] ~= 'Disarmed') then
     for i, v in pairs(devicechanged) do changedDevice = i end -- Store name of the device changed to changedDevice variable
     -- Back windows are being open
     if (devicechanged[kitchenWindow] == 'Open' or devicechanged[livingRoomWindow] == 'Open') then
+        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel)
+        commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
         commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
-        commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
-        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
-    -- Front window is being open
+        -- Front window is being open
     elseif (devicechanged[frontWindow] == 'Open') then
-        commandArray['Scene:' .. cameraSceneFrontToBack] = 'On'
+        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel)
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
-        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
-    -- Front door. Special case as an authorized person can enter through it.
+        commandArray['Scene:' .. cameraSceneFrontToBack] = 'On'
+        -- Front door. Special case as an authorized person can enter through it.
     -- Give some time to disarm the alarm.
     -- When given time is up, activate "alarmSwitchFrontDoor" (see script_device_securityAlarmFrontDoor.lua).
     elseif (devicechanged[frontDoor] == 'Open') then
         commandArray[alarmSwitchFrontDoor] = 'On AFTER ' .. alarmSwitchFrontDoorDelay
     -- PIR change. Only used when alarm is being "armed away".
     elseif (globalvariables['Security'] == 'Armed Away' and devicechanged[pir] == 'On' and otherdevices[frontDoor] == 'Closed') then
-        commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
+        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel)
         commandArray['SendNotification'] = notificationSubject .. changedDevice .. '#' .. notificationSubject .. changedDevice .. '#2'
-        commandArray[siren] = 'Set Level ' .. tostring(sirenLevel) .. ' AFTER 5'
+        commandArray['Scene:' .. cameraSceneBackToFront] = 'On'
     end
 end
 
