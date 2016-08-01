@@ -12,15 +12,11 @@ acknoledgementScene = 'Alarm ack'
 
 commandArray = {}
 if (devicechanged[keypadSwitch] == 'On') then
-	if (otherdevices['Absence'] == 'On') then
-        commandArray['Security panel'] = 'Arm Away'
-    else
-        commandArray['Security panel'] = 'Arm Home'
-    end
-	commandArray['Scene:' .. acknoledgementScene] = 'On'
+    commandArray['Security panel'] = 'Arm Away'
+    commandArray['Scene:' .. acknoledgementScene] = 'On'
 elseif (devicechanged[keypadSwitch] == 'Off') then
-	commandArray['Security panel'] = 'Disarm'
-	commandArray['Scene:' .. acknoledgementScene] = 'On'
+    commandArray['Security panel'] = 'Disarm'
+    commandArray['Scene:' .. acknoledgementScene] = 'On'
 end
 
 return commandArray
