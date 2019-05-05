@@ -1,3 +1,6 @@
+-- !!! OBSOLETE !!!
+-- !!! PLEASE USE DZVENT SCRIPT INSTEAD !!!
+
 -- Send notification when security state changes.
 
 commandArray = {}
