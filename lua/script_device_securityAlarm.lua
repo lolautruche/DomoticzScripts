@@ -1,3 +1,6 @@
+-- !!! OBSOLETE !!!
+-- !!! PLEASE USE DZVENT SCRIPT INSTEAD !!!
+
 -- Main alarm script.
 -- Checks door/window sensors (perimetric alarm) and/or PIR sensor (volumetric alarm).
 -- Volumetric detection is only used when Domoticz alarm status is "Armed Away".
