@@ -1,4 +1,7 @@
 --[[
+!!! OBSOLETE !!!
+!!! PLEASE USE DZVENT SCRIPT INSTEAD !!!
+
 Counter script for electrical radiators.
 
 This script increments a dummy energy counter to calculate electrical power consumption coming from radiators.
