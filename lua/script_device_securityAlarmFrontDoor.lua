@@ -1,3 +1,6 @@
+-- !!! OBSOLETE !!!
+-- !!! PLEASE USE DZVENT SCRIPT INSTEAD !!!
+
 -- Alarm scenario when an intrusion is detected through front door.
 -- See script_device_securityAlarm.lua
 
