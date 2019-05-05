@@ -1,4 +1,7 @@
 --[[
+!!! OBSOLETE !!!
+!!! PLEASE USE DZVENT SCRIPT INSTEAD !!!
+
 HarmonyHub script
 
 See https://www.domoticz.com/wiki/Harmony_Hub for setup.
