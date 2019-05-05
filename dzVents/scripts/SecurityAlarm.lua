@@ -85,13 +85,13 @@ return {
             confirmationLight.switchOff().afterSec(5);
             domoticz.notify(subject, body, domoticz.PRIORITY_NORMAL, domoticz.SOUND_SPACEALARM);
             domoticz.log(body, domoticz.LOG_INFO);
-        
+
         -- Door/Window/Motion sensors
         else
             if (domoticz.security == domoticz.SECURITY_DISARMED or not device.active) then
                 return;
             end
-            
+
             local notificationSubject = 'Cambrioleur entré : ' .. device.name;
             if (device.name == devicesNames.frontDoor) then
                 domoticz.devices(devicesNames.alarmSwitchFrontDoor).switchOn().afterSec(alarmSwitchFrontDoorDelay);
@@ -101,8 +101,9 @@ return {
                 domoticz.notify(notificationSubject, notificationSubject, domoticz.PRIORITY_EMERGENCY);
                 domoticz.log(notificationSubject);
             end
-            
+
         end
 		
 	end
 }
+
