@@ -1,3 +1,6 @@
+-- !!! OBSOLETE !!!
+-- !!! PLEASE USE DZVENT SCRIPT INSTEAD !!!
+
 -- Alarm activation from Mini keypad
 -- Activates Domoticz internal alarm and sends acknowledgement to the keypad.
 -- Arm status will depend on status of absence switch.
