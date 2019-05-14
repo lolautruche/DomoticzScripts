@@ -17,6 +17,7 @@ devicesNames = {
     alarmSwitchFrontDoor = 'Alarme porte entrée', -- Virtual switch to activate if intrusion from front door is detected.
     siren = 'Sirène',
     confirmationLight = 'Lustre salon',
+    homeMode = 'SurveillanceStation - HomeMode',
     -- Door/window sensors / PIR
     frontDoor = 'Porte entrée', -- Front door sensor name
     frontWindow = 'Fenêtre rue', -- front window sensor name
@@ -47,6 +48,7 @@ return {
 			domoticz.SECURITY_DISARMED
 		},
 
+        httpResponses = { 'surveillanceStationCallback' }
 	},
 
 	execute = function(domoticz, device)
@@ -72,10 +74,12 @@ return {
 
             if (device.state == domoticz.SECURITY_DISARMED) then
                 body = 'Alarm was correctly disarmed';
+                domoticz.devices(devicesNames.homeMode).switchOff(); -- Deactivate SurveillanceStation HomeMode
                 domoticz.devices(devicesNames.siren).switchOff();
                 domoticz.devices(devicesNames.alarmSwitchFrontDoor).switchOff();
             else
                 body = 'Alarm was correctly armed';
+                domoticz.devices(devicesNames.homeMode).switchOn(); -- Activate SurveillanceStation HomeMode
             end
 
             -- Confirm status visually
@@ -83,15 +87,21 @@ return {
             confirmationLight.switchOff();
             confirmationLight.switchOn().afterSec(1).forSec(2).repeatAfterSec(1, 1);
             confirmationLight.switchOff().afterSec(5);
+
+            -- Send notification
             domoticz.notify(subject, body, domoticz.PRIORITY_NORMAL, domoticz.SOUND_SPACEALARM);
             domoticz.log(body, domoticz.LOG_INFO);
+
+        elseif (device.isHTTPResponse) then
+            domoticz.log('Response from SurveillanceStation: ' .. tostring(device.json.success));
+            domoticz.log(device.data);
 
         -- Door/Window/Motion sensors
         else
             if (domoticz.security == domoticz.SECURITY_DISARMED or not device.active) then
                 return;
             end
-
+            
             local notificationSubject = 'Cambrioleur entré : ' .. device.name;
             if (device.name == devicesNames.frontDoor) then
                 domoticz.devices(devicesNames.alarmSwitchFrontDoor).switchOn().afterSec(alarmSwitchFrontDoorDelay);
@@ -101,9 +111,8 @@ return {
                 domoticz.notify(notificationSubject, notificationSubject, domoticz.PRIORITY_EMERGENCY);
                 domoticz.log(notificationSubject);
             end
-
+            
         end
 		
 	end
 }
-
