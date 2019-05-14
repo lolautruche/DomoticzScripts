@@ -29,44 +29,44 @@ alarmSwitchFrontDoorDelay = 30 -- Delay after which alarmSwitchFrontDoor will be
 
 return {
 
-	on = {
+    on = {
 
-		-- device triggers
-		devices = {
-			devicesNames.keypadSwitch, -- Keypad switch name
-			devicesNames.frontDoor,
-			devicesNames.frontWindow,
-			devicesNames.kitchenWindow,
-			devicesNames.livingRoomWindow,
-			devicesNames.alarmSwitchFrontDoor
-		},
+        -- device triggers
+        devices = {
+            devicesNames.keypadSwitch, -- Keypad switch name
+            devicesNames.frontDoor,
+            devicesNames.frontWindow,
+            devicesNames.kitchenWindow,
+            devicesNames.livingRoomWindow,
+            devicesNames.alarmSwitchFrontDoor
+        },
 
-		-- security triggers
-		security = {
-			domoticz.SECURITY_ARMEDAWAY,
-			domoticz.SECURITY_ARMEDHOME,
-			domoticz.SECURITY_DISARMED
-		},
+        -- security triggers
+        security = {
+            domoticz.SECURITY_ARMEDAWAY,
+            domoticz.SECURITY_ARMEDHOME,
+            domoticz.SECURITY_DISARMED
+        },
 
         httpResponses = { 'surveillanceStationCallback' }
-	},
+    },
 
-	execute = function(domoticz, device)
-	    local debug = domoticz.variables('Debug').value ~= 0;
-	    local sirenLevel = debug and 10 or 100;
-	    
+    execute = function(domoticz, device)
+        local debug = domoticz.variables('Debug').value ~= 0;
+        local sirenLevel = debug and 10 or 100;
+        
         -- Arming/Disarming with keypad switch
         if (device.name == devicesNames.keypadSwitch) then
             local securityPanel = domoticz.devices(devicesNames.securityPanel);
-    		if (device.active) then
-        		if (domoticz.variables('SecurityArmAway').value == 1) then
-        		    securityPanel.armAway()
-    		    else
-    		        securityPanel.armHome();
-		        end
-	        else
-	            securityPanel.disarm();
-    	    end
+            if (device.active) then
+                if (domoticz.variables('SecurityArmAway').value == 1) then
+                    securityPanel.armAway()
+                else
+                    securityPanel.armHome();
+                end
+            else
+                securityPanel.disarm();
+            end
 
         -- Security status change (see "security" triggers)
         elseif (device.isSecurity) then
@@ -113,6 +113,6 @@ return {
             end
             
         end
-		
-	end
+        
+    end
 }
