@@ -57,12 +57,12 @@ return {
 		},
 
         httpResponses = { 'surveillanceStationCallback' }
-    },
+	},
 
-    execute = function(domoticz, device)
-        local debug = domoticz.variables('Debug').value ~= 0;
-        local sirenLevel = debug and 10 or 100;
-        
+	execute = function(domoticz, device)
+	    local debug = domoticz.variables('Debug').value ~= 0;
+	    local sirenLevel = debug and 10 or 100;
+
         -- Arming/Disarming with keypad switch
         if (device.name == devicesNames.keypadSwitch) then
             local securityPanel = domoticz.devices(devicesNames.securityPanel);
@@ -124,8 +124,8 @@ return {
                 domoticz.notify(notificationSubject, notificationSubject, domoticz.PRIORITY_EMERGENCY);
                 domoticz.log(notificationSubject);
             end
-            
+
         end
-        
-    end
+
+	end
 }
