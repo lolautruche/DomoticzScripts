@@ -74,13 +74,18 @@ return {
 
             if (device.state == domoticz.SECURITY_DISARMED) then
                 body = 'Alarm was correctly disarmed';
-                domoticz.devices(devicesNames.homeMode).switchOff(); -- Deactivate SurveillanceStation HomeMode
+                surveillanceStationStatus = 'false';
+                domoticz.devices(devicesNames.homeMode).switchOff();
                 domoticz.devices(devicesNames.siren).switchOff();
                 domoticz.devices(devicesNames.alarmSwitchFrontDoor).switchOff();
             else
                 body = 'Alarm was correctly armed';
-                domoticz.devices(devicesNames.homeMode).switchOn(); -- Activate SurveillanceStation HomeMode
+                surveillanceStationStatus = 'true';
+                -- Activate SurveillanceStation HomeMode
+                domoticz.devices(devicesNames.homeMode).switchOn();
             end
+
+            domoticz.log('Setting SurveillanceStation HomeMode to ' .. surveillanceStationStatus);
 
             -- Confirm status visually
             local confirmationLight = domoticz.devices(devicesNames.confirmationLight);
