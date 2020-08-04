@@ -29,7 +29,8 @@ devicesNames = {
     bedroom4 = 'Fenêtre salle de jeu',
     pir = 'Sauron présence' -- PIR
 };
-alarmSwitchFrontDoorDelay = 30 -- Delay after which alarmSwitchFrontDoor will be activated once the front door is open.
+alarmSwitchFrontDoorDelay = 30; -- Delay after which alarmSwitchFrontDoor will be activated once the front door is open.
+alarmArmDelay = 15; -- Delay after which the alarm will be armed once activated from the keypad.
 
 return {
 
@@ -66,15 +67,15 @@ return {
         -- Arming/Disarming with keypad switch
         if (device.name == devicesNames.keypadSwitch) then
             local securityPanel = domoticz.devices(devicesNames.securityPanel);
-            if (device.active) then
-                if (domoticz.variables('SecurityArmAway').value == 1) then
-                    securityPanel.armAway()
-                else
-                    securityPanel.armHome();
-                end
-            else
-                securityPanel.disarm();
-            end
+    		if (device.active) then
+        		if (domoticz.variables('SecurityArmAway').value == 1) then
+        		    securityPanel.armAway().afterSec(alarmArmDelay);
+    		    else
+    		        securityPanel.armHome().afterSec(alarmArmDelay);
+		        end
+	        else
+	            securityPanel.disarm();
+    	    end
 
         -- Security status change (see "security" triggers)
         elseif (device.isSecurity) then
