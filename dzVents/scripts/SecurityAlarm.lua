@@ -13,40 +13,48 @@ When intrusion is detected with front door, it gives a delay in order to be able
 --]]
 devicesNames = {
     securityPanel = 'Security panel',
-    keypadSwitch = 'Alarm Level', -- Mini keypad switch device name
+    keypadSwitch = 'Access Control', -- Mini keypad switch device name
     alarmSwitchFrontDoor = 'Alarme porte entrée', -- Virtual switch to activate if intrusion from front door is detected.
     siren = 'Sirène',
-    confirmationLight = 'Lustre salon',
+    confirmationLight = 'Lustre Salon',
     homeMode = 'SurveillanceStation - HomeMode',
     -- Door/window sensors / PIR
     frontDoor = 'Porte entrée', -- Front door sensor name
     frontWindow = 'Fenêtre rue', -- front window sensor name
     kitchenWindow = 'Fenêtre cuisine', -- Kitchen window sensor name
     livingRoomWindow = 'Fenêtre salon', -- Living room sensor name
+    bedroom1 = 'Fenêtre parents',
+    bedroom2 = 'Fenêtre Quentin',
+    bedroom3 = 'Fenêtre Clémence',
+    bedroom4 = 'Fenêtre salle de jeu',
     pir = 'Sauron présence' -- PIR
 };
 alarmSwitchFrontDoorDelay = 30 -- Delay after which alarmSwitchFrontDoor will be activated once the front door is open.
 
 return {
 
-    on = {
+	on = {
 
-        -- device triggers
-        devices = {
-            devicesNames.keypadSwitch, -- Keypad switch name
-            devicesNames.frontDoor,
-            devicesNames.frontWindow,
-            devicesNames.kitchenWindow,
-            devicesNames.livingRoomWindow,
-            devicesNames.alarmSwitchFrontDoor
-        },
+		-- device triggers
+		devices = {
+			devicesNames.keypadSwitch, -- Keypad switch name
+			devicesNames.frontDoor,
+			devicesNames.frontWindow,
+			devicesNames.kitchenWindow,
+			devicesNames.livingRoomWindow,
+			devicesNames.alarmSwitchFrontDoor,
+			devicesNames.bedroom1,
+			devicesNames.bedroom2,
+			devicesNames.bedroom3,
+			devicesNames.bedroom4,
+		},
 
-        -- security triggers
-        security = {
-            domoticz.SECURITY_ARMEDAWAY,
-            domoticz.SECURITY_ARMEDHOME,
-            domoticz.SECURITY_DISARMED
-        },
+		-- security triggers
+		security = {
+			domoticz.SECURITY_ARMEDAWAY,
+			domoticz.SECURITY_ARMEDHOME,
+			domoticz.SECURITY_DISARMED
+		},
 
         httpResponses = { 'surveillanceStationCallback' }
     },
